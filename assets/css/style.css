@@ -1,16 +1,21 @@
 img{ 
-	width:150px;
+	
+	height: 80px;
 	margin:auto;
  }
 
 h1{
-	font-size: 40px;
+	font-size: 35px;
 }
 
 
 h3{
  	font-size:17px;
- 	margin:5px auto 0px auto;
+ 	margin:5px auto 5px auto;
+ }
+
+ h4{
+ 	font-size:14px;
  }
 
  .border{
@@ -19,10 +24,48 @@ h3{
  }
  body{
  	text-align:center;
+ 	margin-top:25px;
+	width:100%;
+
+	background-image: url("../images/background.jpg");
+	background-size: 1500px;
+
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-color: black ;
+	background-position: center;
+ }
+
+ .header{
+ 	margin-bottom:20px;
  }
 
  .jumbotron{
 	padding-top:10px;
 	padding-bottom:5px;
  	height: 150px;
+ }
+
+ .row-centered{
+ 	vertical-align: center;
+ 	margin: 0 auto;
+ }
+ .character{
+ 	margin: 0 auto;
+ }
+
+ .message{
+ 	font-size: 15px;
+ }
+
+ .container{
+
+ }
+
+ .panel-body{
+ 	height:150px;
+ }
+
+ .reset{
+ 	margin-bottom: 30px;
  }
