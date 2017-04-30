@@ -3,8 +3,14 @@ img{
 	margin:auto;
  }
 
- h3{
- 	
+h1{
+	font-size: 40px;
+}
+
+
+h3{
+ 	font-size:17px;
+ 	margin:5px auto 0px auto;
  }
 
  .border{
@@ -16,6 +22,7 @@ img{
  }
 
  .jumbotron{
-
- 	height: 200px;
+	padding-top:10px;
+	padding-bottom:5px;
+ 	height: 150px;
  }

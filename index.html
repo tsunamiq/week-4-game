@@ -93,7 +93,11 @@ var gameon = true;
 $("#attackbtn").on("click", function(){
 	if(gameon && fightstart){
 		console.log("enemy health before: " + enemyObj.health);
+
 		enemyObj.health -= characterObj.attack;
+
+		console.log( $(".chosenEnemy").find(".health").text(enemyObj.health) );
+		
 		console.log("enemy health after: " + enemyObj.health);
 		characterObj.attack += characterObj.attack;
 		characterObj.health -= enemyObj.counter;
@@ -116,6 +120,7 @@ function gamewin(character,enemy){
 		$(".chosenEnemy").hide();
 		console.log("YOU Beat HIM");
 		console.log($(".yourEnemies").hasClass("defaultEnemies"));
+
 
 		count -= 1; 
 		if( count == 1){
