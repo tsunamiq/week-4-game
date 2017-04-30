@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+
+
+
+
+ <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
+ <script type="text/javascript" src="assets/javascript/game.js"></script>
+
+<script>
+$(document).ready(function(){
+
+var person1 = {
+	name: "person1",
+	health: 120,
+	attack: 20,
+	counter: 30
+}
+console.log(person1.health);
+
+var person2 = {
+	name: "person2",
+	health: 130,
+	attack: 20,
+	counter: 30
+}
+var person3 = {
+	name: "person3",
+	health: 140,
+	attack: 20,
+	counter: 30
+}
+var person4 = {
+	name: "person4",
+	health: 150,
+	attack: 20,
+	counter: 1000
+}
+
+var characterObj;
+var enemyObj;
+var count = 4; 
+
+//===============================================
+// 			Function to Choose Character 
+//===============================================
+
+// choose initial character
+var gamestart = false;
+
+	$(".character").on("click", function(){
+		// $(".character").off("click");
+		if(gamestart == false){
+			$(this).addClass("chosenCharacter")
+
+			$(".chosenCharacter").appendTo(".yourCharacter");
+			$(".character").not(".chosenCharacter").addClass("defaultEnemies").appendTo(".yourEnemies");
+		
+
+			characterObj = characterId($(this).attr("id"))
+			console.log("your dude: " + characterObj.name);
+
+			gamestart = true;
+		}
+	});
+
+
+//===============================================
+// 			Function to Choose Enemy 
+//===============================================
+
+
+var fightstart = false;
+
+	$(document).on("click", ".defaultEnemies", function(){
+		if(fightstart == false){
+			$(this).addClass("chosenEnemy").appendTo(".defender");
+			
+			enemyObj = characterId($(this).attr("id"))
+			console.log("the enemy: "+ enemyObj.name);
+			fightstart =true
+
+
+		}
+	});
+
+
+//===============================================
+// 			Function to Attack
+//===============================================
+
+var gameon = true; 
+$("#attackbtn").on("click", function(){
+	if(gameon && fightstart){
+		console.log("enemy health before: " + enemyObj.health);
+		enemyObj.health -= characterObj.attack;
+		console.log("enemy health after: " + enemyObj.health);
+		characterObj.attack += characterObj.attack;
+		characterObj.health -= enemyObj.counter;
+		gamewin(characterObj.health, enemyObj.health);
+	}
+});
+ 
+//===============================================
+// 			Function to define win or loss
+//===============================================
+
+function gamewin(character,enemy){
+	if(character < 0){
+		console.log("you lose & show reset button");
+		gameon = false; 
+
+		$(".reset").html("<button id='resetbtn' class='btn btn-basic btn-xs ''><h3>Reset</h3></button>");
+
+	}else if(enemy < 0){
+		$(".chosenEnemy").hide();
+		console.log("YOU Beat HIM");
+		console.log($(".yourEnemies").hasClass("defaultEnemies"));
+
+		count -= 1; 
+		if( count == 1){
+			$(".reset").html("<button id='resetbtn' class='btn btn-basic btn-xs ''><h3>Reset</h3></button>");
+		}
+		// $(document).children(".yourEnemies" , ".defaultEnemies").length;
+		fightstart = false;
+
+	}else{
+		return;
+	}
+}
+
+
+//===============================================
+// 			Function to associate character to object
+//===============================================
+
+function characterId(dude){
+	
+		switch(dude){
+			case "person1" :
+				return person1
+			case "person2" :
+				return person2
+			case "person3" :
+				return  person3
+			case "person4" :
+				return person4
+	} 
+		
+}
+// var test = characterId("person1");
+// console.log(test);
+
+
+
+//===============================================
+// 			Rest Function
+//===============================================
+
+$(".reset").on("click", function(){
+	$(".defaultEnemies").appendTo(".characterList").removeClass("defaultEnemies").addClass("character");
+	$(".chosenCharacter").appendTo(".characterList").removeClass("chosenCharacter").addClass("character");
+	// $(".character").on("click");
+	gamestart = false;
+	fightstart = false;
+	gameon= true;
+	$(".character").show();
+	$(".reset").html("");
+});
+
+
+
+
+
+
+});
+</script>
+
+
+
+
+
+
+<head>
+		<title>Title</title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<link href="https://fonts.googleapis.com/css?family=Droid+Serif|Open+Sans" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+		
+	</head>
+
+<body>
+	
+<div class="jumbotron">
+    <h1 class="text-center">The Star Wars Game</h1>
+    <h3 class="text-center">Fight Smart and Beat all your opponents!</h3>
+</div>
+	<div class="container">
+
+
+		<!-- CHARACTER LIST -->
+		<div class="row characterList">
+			<div class="col-md-3 character" id="person1">
+				<div class="border ">
+					<h3>person1</h3>
+					<br>
+					<img src="assets/images/sample.jpg">
+					<br>
+					<h3 class="health">120</h3>
+				</div>
+			</div>	
+				
+			<div class="col-md-3 character" id="person2">
+				<div class="border " >
+					<h3>person2</h3>
+					<br>
+					<img src="assets/images/sample.jpg">
+					<br>
+					<h3 class="health">130</h3>
+				</div>
+			</div>
+
+			<div class="col-md-3 character"  id="person3">
+				<div class="border ">
+					<h3>person3</h3>
+					<br>
+					<img src="assets/images/sample.jpg">
+					<br>
+					<h3 class="health">140</h3>
+				</div>
+			</div>
+
+			<div class="col-md-3 character"  id="person4">
+				<div class="border">
+					<h3>person4</h3>
+					<br>
+					<img src="assets/images/sample.jpg">
+					<br>
+					<h3 class="health">150</h3>
+				</div>
+			</div>
+		</div>
+		
+
+		<!-- YOUR CHARACTER -->
+		<div class="row yourCharacter"> 
+			
+				<h3>Your Character</h3>
+				<br>
+				
+			
+		</div>
+		
+
+		<!-- ENEMIES AVAILABLE -->
+		<div class="row yourEnemies"> 
+			<h3>Enemies Available</h3>
+			<br>
+			
+		</div>
+
+		
+		<!-- FIGHT SECTION (attack button) -->
+		<div class="row">
+			<h3>Fight Section</h3>
+			<br>
+			<button id="attackbtn" class="btn btn-basic btn-xs "><h3>Attack!</h3></button>
+		</div>
+
+
+		<!-- DEFENDER SECTION -->
+		<div class="row defender"> 
+			<h3>Defender</h3>
+			
+		</div>
+
+		
+		<!-- MESSAGES -->
+		<div class="row">
+			<h3>Messages</h3>
+			<div class="message">
+			</div>
+			<div class="reset"></div>
+		</div>
+
+
+	</div>
+</body>
+
+</html>
