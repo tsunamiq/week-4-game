@@ -10,28 +10,39 @@
 <script>
 $(document).ready(function(){
 
+var start_audio = new Audio('assets/sounds/starwars_start.mp3');
+var lost_audio = new Audio('assets/sounds/lost.mp3');
+var win_audio = new Audio('assets/sounds/victory.mp3');
+var battle_audio = new Audio('assets/sounds/battle1.mp3');
+
+
+
 var person1 = {
-	name: "person1",
+	name: "Ewok",
 	health: 110,
 	attack: 10,
 	counter: 10
 }
+
 console.log(person1.health);
 
 var person2 = {
-	name: "person2",
+	name: "Luke",
 	health: 120,
 	attack: 20,
 	counter: 20
 }
+
+
+
 var person3 = {
-	name: "person3",
+	name: "Darth Vader",
 	health: 130,
 	attack: 30,
 	counter: 30
 }
 var person4 = {
-	name: "person4",
+	name: "Darth Plagueis",
 	health: 140,
 	attack: 40,
 	counter: 40
@@ -60,7 +71,7 @@ var gamestart = false;
 			$(this).addClass("chosenCharacter")
 
 			$(".chosenCharacter").appendTo(".yourCharacter");
-			$(".chosenCharacter").find(".border").css("background-color", "blue");
+			$(".chosenCharacter").find(".border").css("background-color", "#5AD");
 
 
 			$(".character").not(".chosenCharacter").addClass("defaultEnemies").appendTo(".yourEnemies").find(".border").css("background-color","red").fadeTo("slow", .50);
@@ -75,6 +86,7 @@ var gamestart = false;
 			$(".message").text("You have chosen " + characterName + "! Now choose who you would like to fight!");
 
 			gamestart = true;
+			start_audio.play();
 		}
 	});
 
@@ -88,7 +100,7 @@ var fightstart = false;
 
 	$(document).on("click", ".defaultEnemies", function(){
 		if(fightstart == false){
-			$(this).addClass("chosenEnemy").appendTo(".defender").find(".border").fadeTo("slow",1);
+			$(this).addClass("chosenEnemy").appendTo(".defender").find(".border").fadeTo("slow",1).css("background-color","red");
 			
 			enemyObj = characterId($(this).attr("id"))
 			enemyHealth = enemyObj.health;
@@ -97,9 +109,9 @@ var fightstart = false;
 
 			console.log("the enemy: "+ enemyObj.name);
 			fightstart =true
-			$(".message").text("You have chosen to battle "+ enemyName + "!")
+			$(".message").text("You have chosen to battle "+ enemyName + "! Click the Attack Button to damage your Enemy!")
 
-
+			start_audio.play();
 		}
 	});
 
@@ -127,8 +139,9 @@ $("#attackbtn").on("click", function(){
 
 		$(".message").text("You attacked "+ enemyName + " for "+ characterAttack + " damage and " + enemyName + " has counter with "+ enemyCounter + " damage!");
 		gamewin(characterHealth, enemyHealth);
+		battle_audio.play();
 
-
+		
 
 	}
 });
@@ -168,6 +181,7 @@ function gamewin(character,enemy){
 		$(".reset").html("<button id='resetbtn' class='btn btn-basic btn-xs ''><h3>Reset</h3></button>");
 		$(".message").text("You Were Defeated!");
 
+		setTimeout(lost_audio.play(),2000);
 
 	}else if(enemy < 0){
 		
@@ -180,6 +194,7 @@ function gamewin(character,enemy){
 		if( count == 1){
 			$(".message").text("YOU WIN! YOU'VE DEFEATED ALL ENEMIES!!!");
 			$(".reset").html("<button id='resetbtn' class='btn btn-basic btn-xs ''><h3>Reset</h3></button>");
+			win_audio.play();
 		}
 		// $(document).children(".yourEnemies" , ".defaultEnemies").length;
 		fightstart = false;
@@ -292,32 +307,32 @@ $(".reset").on("click", function(){
 					<div class="row row-centered characterList">
 						<div class="col-md-3 character" id="person1">
 							<div class="border">
-								<h3>person1</h3>
-								<img src="assets/images/sample.jpg">
+								<h3>Ewok</h3>
+								<img class="ewokImg" src="assets/images/woki.jpg">
 								<h3 class="health">120</h3>
 							</div>
 						</div>	
 							
 						<div class="col-md-3 character" id="person2">
 							<div class="border " >
-								<h3>person2</h3>
-								<img src="assets/images/sample.jpg">
+								<h3>Luke</h3>
+								<img src="assets/images/luke.jpg">
 								<h3 class="health">130</h3>
 							</div>
 						</div>
 
 						<div class="col-md-3 character"  id="person3">
 							<div class="border">
-								<h3>person3</h3>
-								<img src="assets/images/sample.jpg">
+								<h3>Darth Vader</h3>
+								<img src="assets/images/darthvader.jpg">
 								<h3 class="health">140</h3>
 							</div>
 						</div>
 
 						<div class="col-md-3 character"  id="person4">
 							<div class="border">
-								<h3>person4</h3>
-								<img src="assets/images/sample.jpg">
+								<h3>Darth Plagueis</h3>
+								<img src="assets/images/dude1.jpg">
 								<h3 class="health">150</h3>
 							</div>
 						</div>
